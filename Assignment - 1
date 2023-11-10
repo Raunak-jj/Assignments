@@ -1,0 +1,133 @@
+import java.util.*;
+import java.util.Scanner;
+
+    public class Assignment {
+
+        private static final Scanner SCANNER = new Scanner(System.in);
+
+        private List<Student> students;
+
+        public Assignment() {
+            this.students = new ArrayList<>();
+        }
+
+        public void addStudent(Student student) {
+            this.students.add(student);
+        }
+
+        public void viewStudents() {
+            System.out.println("Students:");
+            for (Student student : students) {
+                System.out.println(student.getName() + ": " + student.getGrade());
+            }
+        }
+
+        public void updateStudentGrade(String studentName, double newGrade) {
+            for (Student student : students) {
+                if (student.getName().equals(studentName)) {
+                    student.setGrade(newGrade);
+                    break;
+                }
+            }
+        }
+
+        public double calculateAverageGrade() {
+            double totalGrade = 0;
+            for (Student student : students) {
+                totalGrade += student.getGrade();
+            }
+            return totalGrade / students.size();
+        }
+
+        public static void main(String[] args) {
+            Assignment gradeTracker = new Assignment();
+
+            // Set initial grades for some students
+            gradeTracker.addStudent(new Student("John Doe", 90));
+            gradeTracker.addStudent(new Student("Jane Smith", 85));
+            gradeTracker.addStudent(new Student("Peter Jones", 95));
+
+            // Display the menu
+            System.out.println("Student Grade Tracker");
+            System.out.println("1. Add new student");
+            System.out.println("2. View students");
+            System.out.println("3. Update student grade");
+            System.out.println("4. Calculate average grade");
+            System.out.println("5. Exit");
+
+            // Get the user's selection
+            int selection = SCANNER.nextInt();
+
+            // Perform the selected action
+            while (selection != 5) {
+                switch (selection) {
+                    case 1:
+                        // Add new student
+                        System.out.println("Enter student name:");
+                        String studentName = SCANNER.next();
+                        System.out.println("Enter student grade:");
+                        double studentGrade = SCANNER.nextDouble();
+                        gradeTracker.addStudent(new Student(studentName, studentGrade));
+                        break;
+                    case 2:
+                        // View students
+                        gradeTracker.viewStudents();
+                        break;
+                    case 3:
+                        // Update student grade
+                        System.out.println("Enter student name to update grade:");
+                        String studentNameToUpdate = SCANNER.next();
+                        System.out.println("Enter new student grade:");
+                        double newStudentGrade = SCANNER.nextDouble();
+                        gradeTracker.updateStudentGrade(studentNameToUpdate, newStudentGrade);
+                        break;
+                    case 4:
+                        // Calculate average grade
+                        double averageGrade = gradeTracker.calculateAverageGrade();
+                        System.out.println("Average grade: " + averageGrade);
+                        break;
+                    default:
+                        System.out.println("Invalid selection.");
+                }
+
+                // Display the menu again
+                System.out.println("Student Grade Tracker");
+                System.out.println("1. Add new student");
+                System.out.println("2. View students");
+                System.out.println("3. Update student grade");
+                System.out.println("4. Calculate average grade");
+                System.out.println("5. Exit");
+
+                // Get the user's selection
+                selection = SCANNER.nextInt();
+            }
+
+            // Exit the program
+            System.out.println("Goodbye!");
+        }
+    }
+
+    class Student {
+
+        private String name;
+        private double grade;
+
+        public Student(String name, double grade) {
+            this.name = name;
+            this.grade = grade;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public double getGrade() {
+            return grade;
+        }
+
+        public void setGrade(double grade) {
+            this.grade = grade;
+        }
+    }
+
+
