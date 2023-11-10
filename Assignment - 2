@@ -1,0 +1,156 @@
+Exercise-1
+-> There is an off-by-one error in the loop condition. The correct condition should be `i < numbers.length` instead of `i <= numbers.length`. Arrays in Java are zero-indexed, so the valid indices range from 0 to `length - 1`. Here's the corrected version of your program:
+
+-> CORRECT CODE:
+public class ArrayManipulation {
+    public static void main(String[] args) {
+        int[] numbers = {1, 2, 3, 4, 5};
+        
+        for (int i = 0; i < numbers.length; i++) {
+            System.out.println(numbers[i]);
+        }
+    }
+}
+
+
+Exercise-2
+-> The issue in your code is that the `stop` method is called on the `Car` object, but there is no such method defined in the `Car` class. To fix this, you need to add a `stop` method to the `Car` class or remove the `car.stop()` line from the `Main` class.
+
+Here's the corrected version:
+class Car {
+    private String make;
+    private String model;
+
+    public Car(String make, String model) {
+        this.make = make;
+        this.model = model;
+    }
+
+    public void start() {
+        System.out.println("Starting the car.");
+    }
+
+    // Adding a stop method
+    public void stop() {
+        System.out.println("Stopping the car.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Car car = new Car("Toyota", "Camry");
+        car.start();
+        car.stop(); // Now this line is correct
+    }
+}
+Now, the `stop` method is defined in the `Car` class, and the code should run without errors.
+
+
+Exercise-3
+
+In the provided code, there are two issues that need to be addressed:
+
+1. ArrayIndexOutOfBoundsException:
+   In the `try` block, you are trying to access an element at index 10 in the `numbers` array, which goes beyond the array bounds. To fix this, you should access a valid index within the array.
+
+2. ArithmeticException:
+   In the `divide` method, you are trying to divide by zero, which will result in an `ArithmeticException`. You should handle this exception either by adding a try-catch block or by checking if the divisor is zero before performing the division.
+
+Here's the corrected code:
+public class ExceptionHandling {
+    public static void main(String[] args) {
+        int[] numbers = {1, 2, 3, 4, 5};
+
+        try {
+            // Access a valid index within the array
+            System.out.println(numbers[2]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Array index out of bounds.");
+        }
+
+        try {
+            // Attempt to divide by zero
+            int result = divide(10, 0);
+            System.out.println("Result: " + result);
+        } catch (ArithmeticException e) {
+            System.out.println("Cannot divide by zero.");
+        }
+    }
+
+    public static int divide(int a, int b) {
+        if (b == 0) {
+            throw new ArithmeticException("Cannot divide by zero.");
+        }
+        return a / b;
+    }
+}
+In this corrected version, I added a valid index (index 2) in the `try` block for array access, and I added a try-catch block for the `ArithmeticException` that may occur in the `divide` method when dividing by zero.
+
+
+Exercise-4
+
+The bug in the code is related to the efficiency of the recursive approach. The current implementation of the `fibonacci` method has exponential time complexity, making it inefficient for larger values of `n`. To improve the efficiency, you can use memoization to avoid redundant calculations.
+
+Here's the corrected code with memoization:
+import java.util.HashMap;
+import java.util.Map;
+
+public class Fibonacci {
+    private static Map<Integer, Integer> memo = new HashMap<>();
+
+    public static int fibonacci(int n) {
+        if (n <= 1)
+            return n;
+
+        // Check if the result is already memoized
+        if (memo.containsKey(n)) {
+            return memo.get(n);
+        } else {
+            // Calculate and memoize the result
+            int result = fibonacci(n-1) + fibonacci(n-2);
+            memo.put(n, result);
+            return result;
+        }
+    }
+
+    public static void main(String[] args) {
+        int n = 6;
+        int result = fibonacci(n);
+        System.out.println("The Fibonacci number at position " + n + " is: " + result);
+    }
+}
+In this corrected version, I added a `HashMap` called `memo` to store the results of previously calculated Fibonacci numbers. Before making a recursive call, the code checks whether the result for a given `n` is already in the memo. If it is, the stored result is returned directly, avoiding redundant calculations. This memoization technique significantly improves the performance of the Fibonacci calculation.
+
+Exercise-5
+
+The bug in the code is in the condition for checking prime numbers. The inner loop, which iterates from 2 to `i-1`, incorrectly identifies a number as prime if it has any divisor in that range. The correct condition should iterate only up to the square root of `i` because if a number `i` has a divisor greater than its square root, it must also have a divisor smaller than its square root.
+
+Here's the corrected code:
+import java.util.ArrayList;
+import java.util.List;
+
+public class PrimeNumbers {
+    public static List<Integer> findPrimes(int n) {
+        List<Integer> primes = new ArrayList<>();
+        for (int i = 2; i <= n; i++) {
+            boolean isPrime = true;
+            for (int j = 2; j * j <= i; j++) {
+                if (i % j == 0) {
+                    isPrime = false;
+                    break;
+                }
+            }
+            if (isPrime) {
+                primes.add(i);
+            }
+        }
+        return primes;
+    }
+
+    public static void main(String[] args) {
+        int n = 20;
+        List<Integer> primeNumbers = findPrimes(n);
+        System.out.println("Prime numbers up to " + n + ": " + primeNumbers);
+    }
+}
+In the corrected version, I changed the condition in the inner loop to `j * j <= i`, ensuring that the loop only iterates up to the square root of `i`. This improvement makes the prime number checking more efficient and correct.
