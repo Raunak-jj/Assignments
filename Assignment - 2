@@ -12,7 +12,7 @@ public class ArrayManipulation {
     }
 }
 
-
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Exercise-2
 -> The issue in your code is that the `stop` method is called on the `Car` object, but there is no such method defined in the `Car` class. To fix this, you need to add a `stop` method to the `Car` class or remove the `car.stop()` line from the `Main` class.
 
@@ -45,7 +45,7 @@ public class Main {
 }
 Now, the `stop` method is defined in the `Car` class, and the code should run without errors.
 
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Exercise-3
 
 In the provided code, there are two issues that need to be addressed:
@@ -86,7 +86,7 @@ public class ExceptionHandling {
 }
 In this corrected version, I added a valid index (index 2) in the `try` block for array access, and I added a try-catch block for the `ArithmeticException` that may occur in the `divide` method when dividing by zero.
 
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Exercise-4
 
 The bug in the code is related to the efficiency of the recursive approach. The current implementation of the `fibonacci` method has exponential time complexity, making it inefficient for larger values of `n`. To improve the efficiency, you can use memoization to avoid redundant calculations.
@@ -121,6 +121,7 @@ public class Fibonacci {
 }
 In this corrected version, I added a `HashMap` called `memo` to store the results of previously calculated Fibonacci numbers. Before making a recursive call, the code checks whether the result for a given `n` is already in the memo. If it is, the stored result is returned directly, avoiding redundant calculations. This memoization technique significantly improves the performance of the Fibonacci calculation.
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Exercise-5
 
 The bug in the code is in the condition for checking prime numbers. The inner loop, which iterates from 2 to `i-1`, incorrectly identifies a number as prime if it has any divisor in that range. The correct condition should iterate only up to the square root of `i` because if a number `i` has a divisor greater than its square root, it must also have a divisor smaller than its square root.
@@ -154,3 +155,4 @@ public class PrimeNumbers {
     }
 }
 In the corrected version, I changed the condition in the inner loop to `j * j <= i`, ensuring that the loop only iterates up to the square root of `i`. This improvement makes the prime number checking more efficient and correct.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
